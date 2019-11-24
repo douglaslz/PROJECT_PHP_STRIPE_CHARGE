@@ -4,15 +4,13 @@
 
 		private $db;
 		
-
 		public function __construct(){
 		$this->db = new Database;
 
 		}
 
 		public function addTransaction($data){
-		
-		
+
 			//Prepare Query
 			$this->db->query('INSERT INTO transactions(id,customer_id,product,amount,currency,status)VALUES(:id,:customer_id,:product,:amount,:currency,:status)');
 
@@ -26,12 +24,20 @@
 
 			//Execute
 			if($this->db->execute()){
-				$a = true;
 				return true;
 			}else{
-			$a = false;
 				return false;
 			}
+
+		}
+
+		public function getTransactions(){
+	
+		$this->db->query('SELECT * FROM transactions ORDER BY created_at DESC');
+
+		$results = $this->db->resultset();
+
+		return $results;
 
 		}
 

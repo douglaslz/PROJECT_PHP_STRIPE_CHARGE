@@ -4,14 +4,11 @@
 
 		private $db;
 		
-
 		public function __construct(){
 		$this->db = new Database;
-
 		}
 
 		public function addCustomer($data){
-		
 		
 			//Prepare Query
 			$this->db->query('INSERT INTO customers(id,first_name,last_name,email)VALUES(:id,:first_name,:last_name,:email)');
@@ -24,15 +21,19 @@
 
 			//Execute
 			if($this->db->execute()){
-			//echo "<script>console.log("si se conecto")</script>"
-		
 				return true;
-			}else{
-			//echo "<script>console.log("no se conecto")</script>"
-		
+			}else{		
 				return false;
 			}
 
+		}
+
+		public function getCustomers(){
+			$this->db->query('SELECT * FROM customers ORDER BY created_at DESC');
+
+			$results = $this->db->resultset();
+
+			return $results;
 		}
 
 

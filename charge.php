@@ -6,11 +6,13 @@ require_once('lib/pdo_db.php');
 require_once('models/Customer.php');
 require_once('models/Transaction.php');
 
-\Stripe\Stripe::setApiKey('key');
+//Personal key from stripe
+\Stripe\Stripe::setApiKey('your key');
 
 //Sanitize Post array
 $POST = filter_var_array($_POST, FILTER_SANITIZE_STRING);
 
+//Recive data from Post method 
 $first_name = $_POST['first_name'];
 $last_name = $_POST['last_name'];
 $email = $_POST['email'];
@@ -66,8 +68,6 @@ $transaction->addTransaction($transactionData);
 
 //show return data from stripe
 //print_r($charge);
-
-
 
 //Redirect to success
 header('Location: success.php?tid='.$charge->id.'&product='.$charge->description.'&status='.$charge->status);
